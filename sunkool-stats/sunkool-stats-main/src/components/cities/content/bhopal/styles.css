@@ -1,0 +1,32 @@
+/* Bhopal's own styles. The styles every individually built city shares are in
+   components/cities/shared/individual-city/base.css (loaded first). */
+@layer components {
+  .city-bhopal .bhopal-heat-section {
+    isolation: isolate;
+    background-color: #000;
+    background-image: radial-gradient(
+      68% 95% at 50% 42%,
+      #072d46c7 0%,
+      #042034a3 32%,
+      #02142273 55%,
+      #010a1238 70%,
+      transparent 86%
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 640px) {
+    .city-bhopal .bhopal-heat-section {
+      background-size: cover;
+    }
+  }
+}
+.city-bhopal .text-sun, .city-bhopal .text-heat { color: #f47521; }
+.city-bhopal .text-gradient-sun { background-image: linear-gradient(110deg, #f47521, #ffab62); }
+@media (max-width: 767px) {
+  .city-bhopal .city-hero .city-hero-content { position: relative; width: calc(100% - 40px); margin-inline: auto; padding-top: 24px; }
+  .city-bhopal .city-hero .hero-headline { position: relative; inset: auto; transform: none; }
+  .city-bhopal .city-hero .hero-subtext { padding-inline: 0; margin-top: 16px; }
+}

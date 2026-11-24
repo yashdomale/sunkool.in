@@ -1,0 +1,63 @@
+{
+  "name": "sunkool",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "qa:legacy-urls": "node scripts/qa/verify-legacy-urls.mjs",
+    "qa:gsc-404": "node scripts/qa/audit-gsc-404.mjs",
+    "qa:blog-seo": "node scripts/qa/verify-blog-seo.mjs",
+    "qa:blog-links": "node --import ./scripts/register-ts-paths.mjs scripts/qa/verify-blog-links.mjs",
+    "qa:city-schema": "node scripts/qa/audit-city-schema.mjs",
+    "qa:city-pages": "node scripts/qa/verify-city-pages.cjs",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=ExperimentalWarning --experimental-test-module-mocks --import ./scripts/register-ts-paths.mjs --test \"src/**/*.test.ts\""
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
+    "@mdx-js/loader": "^3.1.1",
+    "@next/mdx": "^16.2.9",
+    "@supabase/ssr": "^0.12.3",
+    "@supabase/supabase-js": "^2.110.5",
+    "@tiptap/extension-image": "^3.27.4",
+    "@tiptap/extension-placeholder": "^3.27.4",
+    "@tiptap/extension-table": "^3.27.4",
+    "@tiptap/html": "^3.27.4",
+    "@tiptap/pm": "^3.27.4",
+    "@tiptap/react": "^3.27.4",
+    "@tiptap/starter-kit": "^3.27.4",
+    "clsx": "^2.1.1",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.17.0",
+    "motion": "^12.40.0",
+    "next": "16.2.7",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.81.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/mdx": "^2.0.14",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.7",
+    "playwright": "^1.65.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "browserslist": [
+    "chrome 111",
+    "edge 111",
+    "firefox 111",
+    "safari 16.4"
+  ]
+}

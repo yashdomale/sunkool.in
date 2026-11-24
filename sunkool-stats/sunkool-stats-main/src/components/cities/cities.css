@@ -1,0 +1,194 @@
+.city-landing { padding-top: 5rem; --header-height: 0px; }
+@media (max-width: 767px) { .city-landing { --header-height: 0px; } }
+.city-mumbai { --font-display: var(--font-inter); }
+
+.city-ahmedabad p.leading-relaxed,
+.city-ahmedabad .city-hero .hero-subtext { font-weight: 400; }
+@media (min-width: 768px) {
+  .city-ahmedabad .city-hero .hero-subtext { width: 100%; max-width: none; }
+}
+
+.city-location-popup {
+  position: fixed;
+  z-index: 1000;
+  inset: calc(5rem + .75rem + env(safe-area-inset-top)) 24px auto auto;
+  margin: 0;
+  width: min(calc(100% - 48px), 340px);
+  max-height: calc(100dvh - 7rem - env(safe-area-inset-top));
+  overflow-y: auto;
+  padding: 1.125rem 1.25rem;
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 1.125rem;
+  background: rgb(24 24 27 / 96%);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-family: var(--font-inter), sans-serif;
+  text-align: left;
+  box-shadow: 0 10px 32px rgb(0 0 0 / 25%), 0 1px 0 rgb(255 255 255 / 5%) inset;
+}
+.city-location-popup[open] { animation: city-location-drop .35s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes city-location-drop {
+  from { opacity: 0; transform: translate( .5rem, -1.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .city-location-popup[open] { animation: none; }
+}
+.city-location-popup::backdrop { background: transparent; }
+.city-location-icon { display: grid; place-items: center; float: left; width: 2.25rem; height: 2.25rem; margin: 0 .75rem 0 0; border: 1px solid rgb(88 167 232 / 25%); border-radius: .75rem; background: rgb(88 167 232 / 10%); color: var(--color-electric); }
+.city-location-popup h2 { font-size: 1rem; font-weight: 600; letter-spacing: -.02em; }
+.city-location-popup p { margin-top: .375rem; font-size: .8125rem; line-height: 1.5; color: #aeb8c6; }
+.city-location-actions { clear: both; display: flex; gap: .75rem; margin-top: 1rem; }
+.city-location-actions button { flex: 1; padding: .75rem .5rem; border-radius: 999px; font-size: .875rem; font-weight: 600; cursor: pointer; }
+.city-location-actions button:focus-visible { outline: 2px solid var(--color-electric); outline-offset: 4px; }
+.city-location-decline,
+.city-location-allow { border: 1px solid rgb(255 255 255 / 20%); background: #111; color: #fff; }
+.city-location-decline:hover,
+.city-location-allow:hover { background: #252525; border-color: rgb(255 255 255 / 35%); }
+.city-location-allow:disabled { opacity: .6; cursor: wait; }
+.city-location-credit { display: block; margin-top: .625rem; font-size: .625rem; color: #8a93a0; text-align: right; }
+@media (max-width: 767px) {
+  .city-location-popup {
+    inset: calc(4.5rem + env(safe-area-inset-top)) 12px auto auto;
+    width: min(calc(100% - 24px), 300px);
+    padding: .875rem 1rem;
+  }
+  .city-location-icon { width: 1.75rem; height: 1.75rem; margin: 0 .625rem 0 0; }
+  .city-location-popup h2 { font-size: .9375rem; }
+  .city-location-popup p { font-size: .75rem; }
+  .city-location-actions { margin-top: .75rem; gap: .5rem; }
+  .city-location-actions button { padding: .625rem .5rem; font-size: .8125rem; }
+}
+
+/* The Nagpur hero layout is the shared city-page layout at every viewport. */
+#city-landing .city-hero {
+  width: 100%;
+  height: calc(100svh - 5rem);
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+#city-landing .city-hero-media { position: absolute; inset: 0; width: 100%; height: 100%; }
+#city-landing .city-hero-image { object-fit: cover; object-position: center 22%; }
+#city-landing .city-hero::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#0000 50%, #00000047 70%, #000000e0 100%);
+}
+#city-landing .city-hero-content {
+  z-index: 2;
+  position: absolute;
+  bottom: clamp(16px, 3vh, 36px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(760px, calc(100% - 48px));
+  text-align: center;
+}
+#city-landing .city-hero .hero-headline {
+  position: static;
+  inset: auto;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  font-size: clamp(42px, 4vw, 64px);
+  line-height: .95;
+  text-transform: uppercase;
+}
+#city-landing .city-hero .hero-subtext {
+  max-width: 680px;
+  margin: 10px auto 0;
+  padding: 0;
+  font-size: clamp(15px, 1.3vw, 19px);
+  line-height: 1.5;
+}
+@media (min-width: 768px) {
+  #city-landing .city-hero .hero-headline { white-space: nowrap; }
+}
+@media (min-width: 1024px) {
+  #city-landing .city-hero-content { width: min(1300px, calc(100% - 48px)); }
+}
+@media (max-width: 767px) {
+  #city-landing .city-hero { height: auto; min-height: 0; margin-bottom: 0; }
+  #city-landing .city-hero-media {
+    position: relative;
+    inset: auto;
+    height: clamp(360px, 48svh, 470px);
+    overflow: hidden;
+  }
+  #city-landing .city-hero-image { object-position: 82% center; }
+  /* Bangalore's family spans wider than this crop window can fit alongside
+     the palace, so the shared 82% default showed only the driver with the
+     rest of the family cut off. 65% keeps both parents in frame with the
+     palace still recognizable on the right. #city-landing.city-bangalore
+     (not just .city-bangalore) is needed to outweigh the ID in the rule
+     above: a plain .city-<slug> selector loses to it and never applies. */
+  #city-landing.city-bangalore .city-hero-image { object-position: 65% center; }
+  #city-landing .city-hero::after { content: none; }
+  #city-landing .city-hero-media::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(#0000 45%, #00000073 70%, #000 100%);
+  }
+  #city-landing .city-hero-content {
+    z-index: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: static;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+  }
+  #city-landing .city-hero .hero-reveal { position: relative; width: 100%; margin-top: -96px; }
+  #city-landing .city-hero .hero-headline {
+    z-index: 2;
+    width: calc(100% - 40px);
+    max-width: calc(100% - 40px);
+    margin: 0 auto;
+    font-size: clamp(30px, 8vw, 42px);
+    text-align: center;
+    white-space: normal;
+    text-wrap: balance;
+  }
+  #city-landing .city-hero .hero-subtext {
+    position: relative;
+    width: 100%;
+    max-width: 34rem;
+    margin: 0 auto;
+    padding: 14px 22px 0;
+    background: #000;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+  }
+  #city-landing .city-hero .hero-reveal > p:not(.hero-subtext) {
+    max-width: 34rem;
+    padding-inline: 22px;
+    margin-inline: auto;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  #city-landing .hero-cta-btn { width: min(100%, 360px); min-height: 52px; margin-inline: auto; }
+  #city-landing .hero-cta-section { padding-bottom: max(40px, calc(env(safe-area-inset-bottom, 0px) + 24px)); }
+}
+
+/* Pune's hero photo (shaniwar.png, 4161x2160) is taller than the shared crop
+   band above assumes, cutting off the fort. #city-landing.city-pune beats
+   the bare #city-landing rules on specificity regardless of source order,
+   so this shows the full photo instead of cropping it. */
+@media (max-width: 767px) {
+  #city-landing.city-pune .city-hero-media {
+    height: auto;
+    aspect-ratio: 4161 / 2160;
+  }
+  #city-landing.city-pune .city-hero .hero-reveal {
+    margin-top: 0;
+  }
+}

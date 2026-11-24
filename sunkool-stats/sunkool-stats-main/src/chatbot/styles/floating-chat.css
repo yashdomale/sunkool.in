@@ -1,0 +1,37 @@
+/*
+ * The floating button stack, bottom right: the SUNKOOL Assistant launcher sits ABOVE the WhatsApp
+ * button, on the same centre line. The chat window is a compact card (about 380 x 500px) that opens
+ * from the bottom right corner over the stack (see --chat-window-* below). This is the one place the
+ * positions are defined; the WhatsApp button (src/components/contact/contact-whatsapp-fab.tsx) and the
+ * chatbot (src/chatbot/components) both read these variables, so the two can never drift apart.
+ *
+ * To move the pair lower (nearer the corner), reduce --fab-bottom; the launcher follows. Below 40rem
+ * the window is a small popup in the bottom right corner with a margin all round (it never fills the
+ * screen, so the page stays visible above it) and ignores the window variables.
+ */
+
+:root {
+  /* The WhatsApp button. */
+  --fab-right: 1.5rem;
+  --fab-bottom: 6rem;
+  --fab-size: 3.5rem;
+  /* Space between the WhatsApp button and the chatbot launcher above it. */
+  --fab-gap: 1.125rem;
+  /* The chatbot launcher: same size and right edge as WhatsApp, so the centres line up. */
+  --chat-launcher-bottom: calc(var(--fab-bottom) + var(--fab-size) + var(--fab-gap));
+  /* The chat window: 380 x 500px, 1.5rem from the bottom, over the two buttons while it is open (they
+     are back when it is closed), and never taller than the screen leaves room for. If the visitor
+     drags the SK button somewhere else, the window opens beside it instead
+     (src/chatbot/lib/placement.ts, which uses the same two sizes). */
+  --chat-window-bottom: 1.5rem;
+  --chat-window-width: min(380px, calc(100vw - 2rem));
+  --chat-window-height: min(500px, calc(100dvh - 6rem));
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --fab-right: 2rem;
+    --fab-bottom: 7rem;
+    --fab-size: 4rem;
+  }
+}

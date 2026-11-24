@@ -1,0 +1,965 @@
+.city-mumbai { --font-display: var(--font-inter), "Segoe UI", sans-serif; --font-sans: var(--font-inter), "Segoe UI", sans-serif; --color-void: #000; --color-black: #000; --color-carbon: #0b0d0f; --color-carbon-2: #121519; --color-ash: #353b44; --color-fog: #8a93a0; --color-silver: silver; --color-silver-soft: #d8d8d8; --color-sun: #f47521; --color-titanium: #f47521; --color-kool: #58a7e8; --color-electric: #58a7e8; --color-glow: #7dd3ff; --color-heat: #f47521; --ease-lux: cubic-bezier(0.16, 1, 0.3, 1); }
+.city-mumbai {
+  /* Navbar is fixed (see components/Navbar.tsx) and layout.tsx reserves the
+     same height with a spacer div, so it occupies real document space —
+     city hero sections size against it so header + hero equal one viewport.
+     Shorter on mobile, where a full 80px header eats too much of the
+     screen. */
+  --header-height: 80px;
+}
+
+@media (max-width: 767px) {
+  .city-mumbai {
+    --header-height: 68px;
+  }
+}
+
+@layer base {
+  .city-mumbai * {
+    border-color: color-mix(in oklab, var(--color-silver) 12%, transparent);
+  }
+
+  .city-mumbai {
+    scrollbar-width: thin;
+    color-scheme: dark;
+    /* Several decorative glows (e.g. .installation-photo::before) bleed
+       past their own element via negative inset for a soft ambient-light
+       effect — intentional, but on mobile that bleed can extend past the
+       viewport itself and create a horizontal scrollbar. `html`, not
+       `body`, is the actual viewport scroller in standards mode, so the
+       clip has to live here for it to take effect. No layout depends on
+       horizontal scroll (no `position: sticky` in this codebase). */
+    overflow-x: hidden;
+  }
+
+  .city-mumbai {
+    background: var(--color-void);
+    color: var(--color-silver-soft);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .city-mumbai .container-lux {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .city-mumbai .container-lux {
+      width: min(90vw, 1280px);
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .city-mumbai .headline {
+    font-family: var(--font-display);
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+    font-weight: 820;
+    line-height: 0.95;
+  }
+
+  .city-mumbai .eyebrow {
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .city-mumbai .text-gradient-silver {
+    color: transparent;
+    background: linear-gradient(#fff 0%, silver 55%, #6b6b6b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .city-mumbai .text-gradient-electric {
+    color: transparent;
+    background: linear-gradient(120deg, #7dd3ff 0%, #58a7e8 45%, #2f6ea8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .city-mumbai .text-gradient-sun {
+    color: transparent;
+    background: linear-gradient(120deg, #ffbf96 0%, #f47521 45%, #b3470b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .city-mumbai .text-gradient-silver-cyan {
+    color: transparent;
+    background: linear-gradient(120deg, #f5f7fa 0%, #cdeaff 35%, #7dd3ff 65%, #58a7e8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* Nano-ceramic film image (NanoLayerStack) — a premium hover-lift on the
+     exploded-layer photo. The frame (fixed size, overflow: hidden) picks up
+     the amber border/shadow; the inner wrapper carries the actual
+     translate/scale/brightness so the frame's own box never resizes and
+     the surrounding layout is untouched. Mouse-hover pointers only — touch
+     devices get no `:hover` match at all — and reduced-motion keeps the
+     color/shadow accents but drops the movement. */
+  .city-mumbai .nano-image-frame {
+    transition: border-color 550ms var(--ease-lux), box-shadow 550ms var(--ease-lux);
+  }
+
+  .city-mumbai .nano-image-inner {
+    transition: transform 550ms var(--ease-lux), filter 550ms var(--ease-lux);
+    will-change: transform;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    /* !important: the element also carries Tailwind's `border-white/10`
+       utility, which lives in the (higher-priority) utilities layer and
+       would otherwise always win over this components-layer rule. */
+    .city-mumbai .nano-image-frame:hover {
+      border-color: rgba(246, 177, 26, 0.55) !important;
+      box-shadow:
+        0 28px 56px -18px rgba(0, 0, 0, 0.6),
+        0 0 32px rgba(246, 177, 26, 0.12);
+    }
+
+    .city-mumbai .nano-image-frame:hover .nano-image-inner {
+      transform: translateY(-18px) scale(1.025);
+      filter: brightness(1.08);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+    .city-mumbai .nano-image-frame:hover .nano-image-inner {
+      transform: none;
+    }
+  }
+
+  /* "Why SUNKOOL" summary-card grid + layer image, sized to an exact
+     desktop reference layout. Below `lg` everything is fluid/stacked so
+     nothing overflows or gets cropped on narrow screens. */
+  .city-mumbai .content-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .city-mumbai .content-layout {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 572px 1fr;
+      column-gap: 40px;
+      align-items: start;
+    }
+  }
+
+  .city-mumbai .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .city-mumbai .summary-grid {
+      grid-template-columns: repeat(2, 280px);
+    }
+  }
+
+  .city-mumbai .summary-card {
+    width: 100%;
+    min-height: 172px;
+  }
+
+  .city-mumbai .summary-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+
+  @media (min-width: 1024px) {
+    .city-mumbai .summary-card {
+      width: 280px;
+    }
+  }
+
+  .city-mumbai .summary-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 360 / 295;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+  }
+
+  @media (min-width: 1024px) {
+    .city-mumbai .summary-image {
+      width: 620px;
+      height: 508px;
+      justify-self: end;
+    }
+  }
+
+  /* FilmSelector's 8-card metric+feature grid — grid-area placement keeps
+     each numeric card directly above its related feature card (VLT/IR,
+     TSER/UV Rejection, Heat/Signal, UV Protection/Clarity) regardless of
+     source order. */
+  .city-mumbai .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "vlt tser"
+      "ir uvRejection"
+      "heat uvProtection"
+      "signal clarity";
+    gap: 12px;
+  }
+
+  @media (min-width: 768px) {
+    .city-mumbai .cards-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-areas:
+        "vlt tser heat uvProtection"
+        "ir uvRejection signal clarity";
+      gap: 20px;
+    }
+  }
+
+  .city-mumbai .vlt-card {
+    grid-area: vlt;
+  }
+
+  .city-mumbai .ir-card {
+    grid-area: ir;
+  }
+
+  .city-mumbai .tser-card {
+    grid-area: tser;
+  }
+
+  .city-mumbai .uv-rejection-card {
+    grid-area: uvRejection;
+  }
+
+  .city-mumbai .heat-card {
+    grid-area: heat;
+  }
+
+  .city-mumbai .signal-card {
+    grid-area: signal;
+  }
+
+  .city-mumbai .uv-protection-card {
+    grid-area: uvProtection;
+  }
+
+  .city-mumbai .clarity-card {
+    grid-area: clarity;
+  }
+
+  /* Premium highlighted-word treatment: a sharp blue gradient wordmark with a
+     soft radial glow sitting behind it (not a text-shadow, so the letters
+     stay crisp). Used for the one important word/phrase at the end of a
+     heading, e.g. <HighlightGlow>. */
+  .city-mumbai .text-highlight-glow {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+    color: transparent;
+    background: linear-gradient(135deg, #69c7ff 0%, #347fd6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .city-mumbai .text-highlight-glow-orb {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    width: 380px;
+    height: 240px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      closest-side,
+      rgba(35, 145, 220, 0.25) 0%,
+      rgba(35, 145, 220, 0.12) 45%,
+      rgba(35, 145, 220, 0) 70%
+    );
+    filter: blur(35px);
+    pointer-events: none;
+  }
+
+  /* Nearly-black section background with an extremely subtle dark-blue glow
+     centered behind the heading; the section edges stay pure black. */
+  .city-mumbai .section-glow-bg {
+    position: relative;
+    background: #000;
+  }
+
+  .city-mumbai .section-glow-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 0;
+    width: min(900px, 90%);
+    height: 480px;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(20, 60, 110, 0.16) 0%,
+      rgba(20, 60, 110, 0.06) 45%,
+      rgba(0, 0, 0, 0) 72%
+    );
+    pointer-events: none;
+  }
+
+  .city-mumbai .section-glow-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* "Mumbai Heat? Control It With Sunkool" section — premium black/deep-navy
+     blended background. Radial glow sits behind the centre content and
+     fades seamlessly to near-black at every edge, with no hard boundary. */
+  .city-mumbai .mumbai-heat-section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: #000000;
+    background-image: radial-gradient(
+      ellipse 68% 95% at 50% 42%,
+      rgba(7, 45, 70, 0.78) 0%,
+      rgba(4, 32, 52, 0.64) 32%,
+      rgba(2, 20, 34, 0.45) 55%,
+      rgba(1, 10, 18, 0.22) 70%,
+      rgba(0, 0, 0, 0) 86%
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  @media (max-width: 640px) {
+    .city-mumbai .mumbai-heat-section {
+      background-size: cover;
+    }
+  }
+
+  /* "See The Difference" comparison-slider section — warm burnt-amber glow
+     on the left (Without SUNKOOL side), deep midnight navy behind the
+     heading/divider, cool sapphire-blue glow on the right (With SUNKOOL
+     side), fading to black at all outer edges. Painted directly on the
+     section (not a pseudo-element) so it sits behind children automatically
+     without touching pointer events. */
+  .city-mumbai .comparison-section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: 100%;
+    background-color: #000000;
+    background-image:
+      radial-gradient(
+        ellipse 68% 100% at 6% 52%,
+        rgba(224, 116, 26, 0.4) 0%,
+        rgba(168, 80, 18, 0.28) 32%,
+        rgba(90, 42, 12, 0.15) 56%,
+        rgba(0, 0, 0, 0) 80%
+      ),
+      radial-gradient(
+        ellipse 72% 100% at 94% 46%,
+        rgba(24, 150, 222, 0.42) 0%,
+        rgba(12, 100, 158, 0.3) 34%,
+        rgba(6, 58, 94, 0.16) 58%,
+        rgba(0, 0, 0, 0) 82%
+      ),
+      radial-gradient(
+        ellipse 72% 90% at 50% 24%,
+        rgba(4, 36, 60, 0.68) 0%,
+        rgba(3, 25, 43, 0.52) 40%,
+        rgba(2, 15, 27, 0.3) 64%,
+        rgba(0, 0, 0, 0) 86%
+      );
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .city-mumbai .comparison-section__inner, .city-mumbai .comparison-section__content, .city-mumbai .comparison-section__slider-wrapper {
+    background-color: transparent;
+  }
+
+  @media (max-width: 768px) {
+    .city-mumbai .comparison-section {
+      background-image:
+        radial-gradient(
+          ellipse 80% 55% at 15% 68%,
+          rgba(214, 106, 22, 0.16) 0%,
+          rgba(0, 0, 0, 0) 72%
+        ),
+        radial-gradient(
+          ellipse 80% 58% at 85% 66%,
+          rgba(22, 143, 216, 0.22) 0%,
+          rgba(0, 0, 0, 0) 74%
+        ),
+        radial-gradient(
+          ellipse 100% 70% at 50% 18%,
+          rgba(4, 36, 60, 0.52) 0%,
+          rgba(0, 0, 0, 0) 82%
+        );
+    }
+  }
+
+  /* "Get Car Window Film in Mumbai" CTA — premium black background with a
+     fine cyan-blue dot-grid and a dark navy wash biased toward the stats
+     column on the right, low-contrast and fading smoothly to black at the
+     section edges. Pseudo-elements sit behind the content (z-index 0), the
+     container above them (z-index 1, set inline). */
+  .city-mumbai .get-started-section::before, .city-mumbai .get-started-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .city-mumbai .get-started-section::before {
+    background-image: radial-gradient(
+      ellipse 70% 85% at 72% 50%,
+      rgba(22, 50, 92, 0.32) 0%,
+      rgba(15, 34, 64, 0.16) 42%,
+      rgba(0, 0, 0, 0) 76%
+    );
+  }
+
+  .city-mumbai .get-started-section::after {
+    background-image: radial-gradient(rgba(88, 167, 232, 0.16) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 62% 90% at 70% 50%, #000 40%, transparent 88%);
+    -webkit-mask-image: radial-gradient(ellipse 62% 90% at 70% 50%, #000 40%, transparent 88%);
+    opacity: 0.7;
+  }
+
+  /* Installation photo: a soft cyan glow sits behind the frame so the photo
+     reads as gently lit rather than flat against the section background. */
+  .city-mumbai .installation-photo::before {
+    content: "";
+    position: absolute;
+    inset: -14%;
+    z-index: -1;
+    background: radial-gradient(
+      ellipse 60% 55% at 50% 50%,
+      rgba(88, 167, 232, 0.35) 0%,
+      rgba(88, 167, 232, 0.14) 50%,
+      rgba(88, 167, 232, 0) 75%
+    );
+    filter: blur(52px);
+    pointer-events: none;
+  }
+
+  /* Protection-at-a-glance icons (Get Started section): each icon starts
+     undrawn/collapsed and animates once — to its resting state — when the
+     `.protection-stats` root gains `.in-view` (see ProtectionStats.tsx).
+     Every rule here is transform/opacity/stroke-offset only, one-shot, and
+     never repeats since `.in-view` is never removed. */
+  .city-mumbai .ps-icon-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .city-mumbai .ps-arc {
+    transform-origin: 32px 32px;
+    transform: rotate(-70deg);
+    stroke-dashoffset: 78;
+    transition: stroke-dashoffset 0.9s var(--ease-lux), transform 0.9s var(--ease-lux);
+  }
+
+  .city-mumbai .in-view .ps-arc {
+    transform: rotate(-90deg);
+    stroke-dashoffset: 0;
+  }
+
+  .city-mumbai .ps-draw {
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset 0.8s var(--ease-lux);
+  }
+
+  .city-mumbai .in-view .ps-draw {
+    stroke-dashoffset: 0;
+  }
+
+  .city-mumbai .ps-fill-in {
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.4s var(--ease-lux) 0.7s, opacity 0.3s ease-out 0.7s;
+  }
+
+  .city-mumbai .in-view .ps-fill-in {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .city-mumbai .ps-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  .city-mumbai .in-view .ps-pulse {
+    animation: mumbai-ps-pulse-anim 1.1s var(--ease-lux) 0.55s forwards;
+  }
+
+  @keyframes mumbai-ps-pulse-anim {
+    0% {
+      opacity: 0.55;
+      transform: scale(0.85);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.45);
+    }
+  }
+
+  .city-mumbai .ps-bar {
+    transform-box: fill-box;
+    transform-origin: bottom;
+    transform: scaleY(0);
+    transition: transform 0.5s var(--ease-lux);
+  }
+
+  .city-mumbai .in-view .ps-bar-1 {
+    transform: scaleY(1);
+    transition-delay: 0.1s;
+  }
+
+  .city-mumbai .in-view .ps-bar-2 {
+    transform: scaleY(1);
+    transition-delay: 0.22s;
+  }
+
+  .city-mumbai .in-view .ps-bar-3 {
+    transform: scaleY(1);
+    transition-delay: 0.34s;
+  }
+
+  .city-mumbai .ps-ring {
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+    transform: scale(0.75);
+  }
+
+  .city-mumbai .in-view .ps-ring-1 {
+    animation: mumbai-ps-ring-anim 1.3s var(--ease-lux) 0.45s forwards;
+  }
+
+  .city-mumbai .in-view .ps-ring-2 {
+    animation: mumbai-ps-ring-anim 1.3s var(--ease-lux) 0.6s forwards;
+  }
+
+  @keyframes mumbai-ps-ring-anim {
+    0% {
+      opacity: 0.45;
+      transform: scale(0.75);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.3);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .city-mumbai .ps-arc, .city-mumbai .ps-draw, .city-mumbai .ps-fill-in, .city-mumbai .ps-pulse, .city-mumbai .ps-bar, .city-mumbai .ps-ring {
+      transition: none !important;
+      animation: none !important;
+    }
+
+    .city-mumbai .ps-arc {
+      transform: rotate(-90deg);
+      stroke-dashoffset: 0;
+    }
+
+    .city-mumbai .ps-draw {
+      stroke-dashoffset: 0;
+    }
+
+    .city-mumbai .ps-fill-in {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .city-mumbai .ps-pulse, .city-mumbai .ps-ring {
+      opacity: 0;
+    }
+
+    .city-mumbai .ps-bar {
+      transform: scaleY(1);
+    }
+  }
+
+  /* Bright sapphire hairline across the footer's top edge, with a soft
+     blurred glow beneath it so it reads as the page's final accent. */
+  .city-mumbai .footer-glow-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(88, 167, 232, 0.75) 50%,
+      transparent 100%
+    );
+    box-shadow: 0 0 6px rgba(88, 167, 232, 0.5);
+    pointer-events: none;
+  }
+
+  .city-mumbai .skip-link {
+    z-index: 100;
+    background: var(--color-electric);
+    color: #000;
+    transition: transform 0.2s var(--ease-lux);
+    border-radius: 9999px;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    transform: translateY(-200%);
+  }
+
+  .city-mumbai .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  .city-mumbai .focus-ring {
+    outline: none;
+  }
+
+  .city-mumbai .focus-ring:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--color-void),
+      0 0 0 4px var(--color-electric);
+  }
+}
+
+/* City landing hero — nav (80px, --header-height) + hero fill exactly one
+   viewport. Background photo is full-bleed object-fit: cover; overflow:
+   hidden on the section clips the cover-scaled image and keeps the hero
+   free of its own scrollbar/horizontal overflow. Text overlays sit on top
+   via position: absolute. Left unlayered (like .glow-card below) so it wins
+   over any Tailwind utility classes applied alongside it on the same
+   elements without needing !important. */
+.city-mumbai .city-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: calc(100vh - var(--header-height, 80px));
+  height: calc(100svh - var(--header-height, 80px));
+}
+
+/* Dedicated image wrapper (was a bare Tailwind `absolute inset-0` div) —
+   pulled into its own class so mobile can give it a real, clamped height
+   instead of inheriting the full-viewport hero height. */
+.city-mumbai .city-hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.city-mumbai .city-hero-image {
+  object-fit: cover;
+  object-position: center 38%;
+}
+
+.city-mumbai .city-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.28) 70%,
+    rgba(0, 0, 0, 0.88) 100%
+  );
+  pointer-events: none;
+}
+
+.city-mumbai .city-hero-content {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(16px, 3vh, 36px);
+  transform: translateX(-50%);
+  z-index: 2;
+  width: min(760px, calc(100% - 48px));
+  text-align: center;
+}
+
+.city-mumbai .city-hero h1 {
+  font-size: clamp(42px, 4vw, 64px);
+  line-height: 1.08;
+  margin: 0;
+}
+
+/* Desktop: headline fits on one line (per reference), so the content box
+   widens to fit it instead of wrapping to two lines. */
+@media (min-width: 1024px) {
+  .city-mumbai .city-hero-content {
+    width: min(1300px, calc(100% - 48px));
+  }
+
+  .city-mumbai .city-hero h1 {
+    white-space: nowrap;
+  }
+}
+
+.city-mumbai .city-hero p {
+  max-width: 900px;
+  margin-top: 10px;
+  margin-inline: auto;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+@media (min-width: 640px) {
+  .city-mumbai .city-hero p {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .city-mumbai .city-hero p {
+    font-size: 19px;
+  }
+}
+
+/* Mobile hero (<768px) — rebuilt as a natural document flow instead of a
+   fixed-viewport, all-absolute overlay: the image wrapper is sized to the
+   source photo's own aspect ratio (rather than a tall clamped height) so
+   object-fit: cover never has to crop it away, then the heading,
+   paragraph and CTA follow as normal in-flow content on solid black.
+   Nothing above this query is touched, so desktop/tablet (>=768px) render
+   exactly as before. */
+@media (max-width: 767px) {
+  .city-mumbai .city-hero {
+    height: auto;
+    min-height: auto;
+  }
+
+  .city-mumbai .city-hero-media {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1893 / 831;
+    overflow: hidden;
+  }
+
+  /* Desktop's full-hero gradient is replaced by one scoped to the image
+     wrapper only, so it never washes out the in-flow paragraph below. */
+  .city-mumbai .city-hero::after {
+    content: none;
+  }
+
+  .city-mumbai .city-hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 45%,
+      rgba(0, 0, 0, 0.45) 70%,
+      #000 100%
+    );
+    pointer-events: none;
+  }
+
+  .city-mumbai .city-hero-content {
+    position: static;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: auto;
+    z-index: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .city-mumbai .city-hero h1 {
+    width: auto;
+    max-width: calc(100% - 40px);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 24px;
+    margin-bottom: 10px;
+    font-size: clamp(42px, 4vw, 64px);
+    line-height: 1.08;
+    font-weight: 800;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .city-mumbai .city-hero p {
+    position: relative;
+    max-width: 34rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 22px 0;
+    background: #000;
+    line-height: 1.5;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .city-mumbai .hero-cta-btn {
+    width: min(100%, 360px);
+    min-height: 52px;
+    margin-inline: auto;
+  }
+
+  .city-mumbai .hero-cta-section {
+    padding-bottom: max(40px, calc(env(safe-area-inset-bottom, 0px) + 24px));
+  }
+}
+
+/* Premium dark card system for stat/product boxes — shared by every
+   .glow-card (cursor-tracked spotlight) and .reveal-card (CSS-only) usage.
+   Left unlayered on purpose so it wins over Tailwind's utility-layer
+   background/border classes on the same elements without !important. */
+.city-mumbai .glow-card, .city-mumbai .reveal-card {
+  position: relative;
+  background: linear-gradient(180deg, #111111 0%, #050505 100%);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 28px -20px rgba(0, 0, 0, 0.7);
+  transition:
+    transform 0.35s ease-out,
+    border-color 0.35s ease-out,
+    box-shadow 0.35s ease-out,
+    background 0.35s ease-out;
+}
+
+.city-mumbai .glow-card::before, .city-mumbai .reveal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    220px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.08),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease-out;
+  pointer-events: none;
+}
+
+.city-mumbai .glow-card > *, .city-mumbai .reveal-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.city-mumbai .glow-card:hover, .city-mumbai .reveal-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.28);
+  background: linear-gradient(180deg, #161616 0%, #070707 100%);
+  box-shadow:
+    0 18px 40px -22px rgba(0, 0, 0, 0.85),
+    0 0 26px -8px rgba(255, 255, 255, 0.14);
+}
+
+.city-mumbai .glow-card:hover::before, .city-mumbai .reveal-card:hover::before {
+  opacity: 1;
+}
+
+/* Icon inside a .glow-card / .reveal-card — scales up slightly when the card is hovered */
+.city-mumbai .glow-card-icon, .city-mumbai .reveal-card-icon {
+  display: inline-flex;
+  transition: transform 0.35s ease-out;
+}
+
+.city-mumbai .glow-card:hover .glow-card-icon, .city-mumbai .reveal-card:hover .reveal-card-icon {
+  transform: scale(1.1);
+}
+
+/* Programmatic hover-sync state (e.g. a layer row highlighting its
+   corresponding sheet in the stack visual), applied without a direct
+   cursor on the element itself. */
+.city-mumbai .glow-card-active {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  box-shadow:
+    0 14px 34px -20px rgba(0, 0, 0, 0.85),
+    0 0 26px -8px rgba(255, 255, 255, 0.14);
+}
+
+.city-mumbai .glow-card-active::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city-mumbai .glow-card, .city-mumbai .glow-card::before, .city-mumbai .glow-card-icon, .city-mumbai .reveal-card, .city-mumbai .reveal-card-icon {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .city-mumbai .text-highlight-glow-orb {
+    width: 220px;
+    height: 150px;
+    filter: blur(28px);
+  }
+
+  .city-mumbai .section-glow-bg::before {
+    height: 320px;
+  }
+}
+
+/* AnimatedNumber / stat-value — a statistic is built from static text runs
+   (.static-part, never touched by JS) and one AnimatedNumber span per
+   integer (.animated-number, the only thing that counts). Sharp flat blue,
+   no shadow/glow/halo. */
+.city-mumbai .stat-value {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  gap: 0;
+  color: #4da9e9;
+  font-variant-numeric: tabular-nums;
+  text-shadow: none;
+  filter: none;
+}
+
+.city-mumbai .static-part {
+  display: inline;
+  opacity: 1;
+  transform: none;
+  transition: none;
+  animation: none;
+  filter: none;
+}
+
+/* Reserves its final width up front (tabular-nums, min-width in ch) so
+   counting never shifts surrounding text/symbols. */
+.city-mumbai .animated-number {
+  display: inline-block;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  text-shadow: none;
+  filter: none;
+  box-shadow: none;
+}

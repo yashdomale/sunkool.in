@@ -1,0 +1,234 @@
+/* ------------------------------------------------------------------ */
+/*  Home feature timeline (.stl)                                       */
+/*  Markup: ./feature-highlights.tsx (styles imported by ./feature-timeline.tsx) */
+/*  Scroll logic: ./feature-timeline.tsx                               */
+/*  Desktop (>=900px): pinned, the track slides sideways. Mobile: a    */
+/*  vertical list. .stl--js is only added once the script runs and     */
+/*  motion is allowed, so reduced motion / no JS is a plain static     */
+/*  list. .is-on is set from scroll position, so everything reverses.  */
+/* ------------------------------------------------------------------ */
+
+.stl {
+  --stl-accent: #29b6ff; /* line + dot colour */
+  --stl-accent2: #2f6df6; /* end of the line gradient */
+  --stl-bg: #000; /* page background (fills the inactive dot) */
+  --stl-fg: #fff; /* titles */
+  --stl-muted: #a9b6d3; /* paragraph text */
+  --stl-dim: rgba(255, 255, 255, 0.18); /* inactive dot border */
+  --stl-rail: rgba(255, 255, 255, 0.14); /* empty track */
+  --stl-top: 4rem; /* fixed navbar height, so the pin sits below it */
+  color: var(--stl-fg);
+}
+.stl *,
+.stl *::before,
+.stl *::after {
+  box-sizing: border-box;
+}
+.stl-stage {
+  padding: 0 0 2.5rem;
+}
+/* the stats row (FeatureTimeline's `lead`), above the points */
+.stl-lead {
+  margin-bottom: 6.5rem;
+}
+.stl-viewport {
+  position: relative;
+}
+.stl-track {
+  position: relative;
+}
+.stl-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.stl-line {
+  position: absolute;
+  left: 6px;
+  top: 0.6rem;
+  width: 2px;
+  height: var(--stl-len, 0px);
+  background: var(--stl-rail);
+  pointer-events: none;
+}
+.stl-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--stl-accent), var(--stl-accent2));
+  transform-origin: 50% 0;
+}
+.stl-item {
+  position: relative;
+  padding: 0 0 2.5rem 2.75rem;
+}
+.stl-item:last-child {
+  padding-bottom: 0;
+}
+.stl-dot {
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: var(--stl-bg);
+  border: 2px solid var(--stl-accent);
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+    background 0.4s,
+    box-shadow 0.5s;
+}
+.stl-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--stl-accent);
+  margin-bottom: 0.35rem;
+}
+.stl-item h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--stl-fg);
+  margin: 0 0 0.6rem;
+}
+.stl-item p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--stl-muted);
+  margin: 0;
+  max-width: 34rem;
+}
+
+/* animated states (only once the script has added .stl--js) */
+.stl--js .stl-num,
+.stl--js .stl-item h3,
+.stl--js .stl-item p {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.stl--js .stl-item h3 {
+  transition-delay: 0.07s;
+}
+.stl--js .stl-item p {
+  transition-delay: 0.14s;
+}
+.stl--js .stl-dot {
+  transform: scale(0.55);
+  border-color: var(--stl-dim);
+}
+.stl--js .stl-item.is-on .stl-num,
+.stl--js .stl-item.is-on h3,
+.stl--js .stl-item.is-on p {
+  opacity: 1;
+  transform: none;
+}
+.stl--js .stl-item.is-on .stl-dot {
+  transform: none;
+  border-color: var(--stl-accent);
+  background: var(--stl-accent);
+  box-shadow:
+    0 0 0 5px rgba(41, 182, 255, 0.18),
+    0 0 18px rgba(41, 182, 255, 0.55);
+}
+.stl--js .stl-line {
+  transition: opacity 0.6s;
+}
+.stl--js:not(.is-in) .stl-line {
+  opacity: 0;
+}
+.stl--js:not(.is-in) .stl-item.is-on .stl-num,
+.stl--js:not(.is-in) .stl-item.is-on h3,
+.stl--js:not(.is-in) .stl-item.is-on p {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+/* desktop: pinned, horizontal.
+   The stage is only as tall as the timeline, so there is no empty band above or
+   below it in the page flow. While pinned it sits centred on screen
+   (--stl-center, set by feature-timeline.tsx) but never under the navbar. */
+.stl--h .stl-stage {
+  position: sticky;
+  top: max(var(--stl-top), var(--stl-center, 0px));
+  padding: 0; /* the viewport carries the padding instead, see below */
+}
+/* pinned: the stats row stays on screen above the points while they play
+   (80px here + the viewport's own 28px padding = the gap down to the line) */
+.stl--h .stl-lead {
+  margin-bottom: 5rem;
+}
+.stl--h .stl-viewport {
+  /* overflow: hidden clips the sliding track, so this vertical padding is what
+     stops the dots (7px above the track) and their glow from being cut off */
+  padding: 1.75rem 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 var(--stl-fl, 0%),
+    #000 97%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 var(--stl-fl, 0%),
+    #000 97%,
+    transparent 100%
+  );
+}
+.stl--h .stl-track {
+  width: max-content;
+  will-change: transform;
+  padding-right: 3rem;
+}
+.stl--h .stl-list {
+  flex-direction: row;
+}
+.stl--h .stl-line {
+  left: 7px;
+  top: 0;
+  width: var(--stl-len, 0px);
+  height: 2px;
+}
+.stl--h .stl-fill {
+  background: linear-gradient(90deg, var(--stl-accent), var(--stl-accent2));
+  transform-origin: 0 50%;
+}
+.stl--h .stl-item {
+  flex: 0 0 min(23rem, 38vw);
+  padding: 2.6rem 3rem 0 0;
+}
+.stl--h .stl-dot {
+  top: 0;
+  left: 0;
+}
+.stl--h .stl-item h3 {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .stl-item {
+    padding-left: 2.25rem;
+    padding-bottom: 2rem;
+  }
+  .stl-item h3 {
+    font-size: 1.2rem;
+  }
+  .stl-item p {
+    font-size: 1rem;
+  }
+}

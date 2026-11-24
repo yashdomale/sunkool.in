@@ -1,0 +1,605 @@
+.city-nagpur { --font-sans: var(--font-inter), "Segoe UI", sans-serif; --font-display: var(--font-inter-tight), "Segoe UI", sans-serif; --color-void: #000000; --color-fog: #8a93a0; --color-silver: #c0c0c0; --color-silver-soft: #d8d8d8; --color-sun: #f47521; --color-kool: #58a7e8; --color-electric: #58a7e8; --color-glow: #7dd3ff; --color-heat: #f47521; --color-carbon: #0b0d0f; --color-carbon-2: #121519; --color-titanium: #f47521; }
+.city-nagpur {
+  --header-height: 80px;
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 767px) {
+  .city-nagpur {
+    --header-height: 68px;
+  }
+}
+
+.city-nagpur {
+  scrollbar-width: thin;
+  color-scheme: dark;
+  overflow-x: hidden;
+}
+
+.city-nagpur {
+  background: var(--color-void);
+  color: var(--color-silver-soft);
+  overflow-x: hidden;
+}
+
+@layer components {
+  /* ---------- layout ---------- */
+  .city-nagpur .container-lux {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 640px) {
+    .city-nagpur .container-lux {
+      width: min(90vw, 1280px);
+      padding-inline: 0;
+    }
+  }
+
+  .city-nagpur .skip-link {
+    z-index: 100;
+    background: var(--color-electric);
+    color: #000;
+    transition: transform 0.2s var(--ease-lux);
+    border-radius: 9999px;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    transform: translateY(-200%);
+  }
+  .city-nagpur .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  .city-nagpur .focus-ring {
+    outline: none;
+  }
+  .city-nagpur .focus-ring:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--color-void),
+      0 0 0 4px var(--color-electric);
+  }
+
+  /* ---------- typography ---------- */
+  .city-nagpur .headline {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+    font-weight: 800;
+    line-height: 0.95;
+  }
+  .city-nagpur .eyebrow {
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .city-nagpur .text-gradient-silver {
+    color: transparent;
+    background: linear-gradient(#fff 0%, silver 55%, #6b6b6b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  .city-nagpur .text-gradient-electric {
+    color: transparent;
+    background: linear-gradient(120deg, #7dd3ff 0%, #58a7e8 45%, #2f6ea8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  .city-nagpur .text-gradient-sun {
+    color: transparent;
+    background: linear-gradient(120deg, #ffbf96 0%, #f47521 45%, #b3470b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  .city-nagpur .text-gradient-silver-cyan {
+    color: transparent;
+    background: linear-gradient(120deg, #f5f7fa 0%, #cdeaff 35%, #7dd3ff 65%, #58a7e8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* ---------- hero ---------- */
+  .city-nagpur .city-hero {
+    width: 100%;
+    height: calc(100vh - var(--header-height, 80px));
+    height: calc(100svh - var(--header-height, 80px));
+    position: relative;
+    overflow: hidden;
+  }
+  .city-nagpur .city-hero-media {
+    position: absolute;
+    inset: 0;
+  }
+  .city-nagpur .city-hero-image {
+    object-fit: cover;
+    object-position: center 22%;
+  }
+  .city-nagpur .city-hero::after {
+    content: "";
+    pointer-events: none;
+    background: linear-gradient(#0000 50%, #00000047 70%, #000000e0 100%);
+    position: absolute;
+    inset: 0;
+  }
+  .city-nagpur .city-hero-content {
+    z-index: 2;
+    text-align: center;
+    width: min(760px, calc(100% - 48px));
+    position: absolute;
+    bottom: clamp(16px, 3vh, 36px);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .city-nagpur .city-hero .hero-headline {
+    margin: 0;
+    font-size: clamp(42px, 4vw, 64px);
+  }
+  @media (min-width: 768px) {
+    .city-nagpur .city-hero .hero-headline {
+      white-space: nowrap;
+    }
+  }
+  @media (min-width: 1024px) {
+    .city-nagpur .city-hero-content {
+      width: min(1300px, calc(100% - 48px));
+    }
+  }
+  .city-nagpur .city-hero .hero-subtext {
+    max-width: 680px;
+    margin: 10px auto 0;
+    font-size: clamp(15px, 1.3vw, 19px);
+    line-height: 1.5;
+  }
+  @media (max-width: 767px) {
+    .city-nagpur .city-hero {
+      height: auto;
+      min-height: auto;
+      margin-bottom: 0;
+    }
+    .city-nagpur .city-hero-media {
+      width: 100%;
+      height: clamp(360px, 48svh, 470px);
+      position: relative;
+      inset: auto;
+      overflow: hidden;
+    }
+    .city-nagpur .city-hero-image {
+      object-position: 82% center;
+    }
+    .city-nagpur .city-hero::after {
+      content: none;
+    }
+    .city-nagpur .city-hero-media::after {
+      content: "";
+      pointer-events: none;
+      background: linear-gradient(#0000 45%, #00000073 70%, #000 100%);
+      position: absolute;
+      inset: 0;
+    }
+    .city-nagpur .city-hero-content {
+      z-index: auto;
+      flex-direction: column;
+      align-items: center;
+      width: auto;
+      display: flex;
+      position: static;
+      bottom: auto;
+      left: auto;
+      transform: none;
+    }
+    /* Pulled up as one block (headline + subtext together) so the subtext
+       always sits directly below the headline, whether the headline wraps
+       to 2 or 3 lines. An absolute offset on the headline alone doesn't
+       know its own height, so a longer city name wrapping to a 3rd line
+       used to push the headline's bottom edge past the subtext above it. */
+    .city-nagpur .city-hero .hero-reveal {
+      position: relative;
+      width: 100%;
+      margin-top: -96px;
+    }
+    .city-nagpur .city-hero .hero-headline {
+      z-index: 2;
+      text-align: center;
+      text-wrap: balance;
+      width: calc(100% - 40px);
+      max-width: calc(100% - 40px);
+      margin: 0 auto;
+    }
+    .city-nagpur .city-hero .hero-subtext {
+      text-align: center;
+      background: #000;
+      width: 100%;
+      max-width: 34rem;
+      margin: 0 auto;
+      padding: 14px 22px 0;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+      position: relative;
+    }
+    .city-nagpur .hero-cta-btn {
+      width: min(100%, 360px);
+      min-height: 52px;
+      margin-inline: auto;
+    }
+    .city-nagpur .hero-cta-section {
+      padding-bottom: max(40px, calc(env(safe-area-inset-bottom, 0px) + 24px));
+    }
+  }
+  /* .hero-headline's absolute positioning above resolves against .hero-reveal
+     (the nearest transformed ancestor). Keep that transform present even
+     under reduced motion so the containing block stays consistent. */
+  @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    .city-nagpur .city-hero .hero-reveal {
+      transform: translateY(0) !important;
+    }
+  }
+
+  /* ---------- cards ---------- */
+  .city-nagpur .glow-card, .city-nagpur .reveal-card {
+    background: linear-gradient(#111 0%, #050505 100%);
+    border-color: #ffffff1f;
+    transition:
+      transform 0.35s ease-out,
+      border-color 0.35s ease-out,
+      box-shadow 0.35s ease-out,
+      background 0.35s ease-out;
+    position: relative;
+    box-shadow: 0 10px 28px -20px #000000b3;
+  }
+  .city-nagpur .glow-card::before, .city-nagpur .reveal-card::before {
+    content: "";
+    z-index: 0;
+    border-radius: inherit;
+    background: radial-gradient(220px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), #ffffff14, transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease-out;
+    position: absolute;
+    inset: 0;
+  }
+  .city-nagpur .glow-card > *, .city-nagpur .reveal-card > * {
+    z-index: 1;
+    position: relative;
+  }
+  .city-nagpur .glow-card:hover, .city-nagpur .reveal-card:hover {
+    background: linear-gradient(#161616 0%, #070707 100%);
+    border-color: #ffffff47;
+    transform: translateY(-3px);
+    box-shadow:
+      0 18px 40px -22px #000000d9,
+      0 0 26px -8px #ffffff24;
+  }
+  .city-nagpur .glow-card:hover::before, .city-nagpur .reveal-card:hover::before {
+    opacity: 1;
+  }
+  .city-nagpur .glow-card-icon, .city-nagpur .reveal-card-icon {
+    transition: transform 0.35s ease-out;
+    display: inline-flex;
+  }
+  .city-nagpur .glow-card:hover .glow-card-icon, .city-nagpur .reveal-card:hover .reveal-card-icon {
+    transform: scale(1.1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .city-nagpur .glow-card, .city-nagpur .glow-card::before, .city-nagpur .glow-card-icon, .city-nagpur .reveal-card, .city-nagpur .reveal-card-icon {
+      transition: none;
+    }
+  }
+
+  /* ---------- stats ---------- */
+  .city-nagpur .stat-value {
+    white-space: nowrap;
+    color: #4da9e9;
+    font-variant-numeric: tabular-nums;
+    align-items: baseline;
+    gap: 0;
+    display: inline-flex;
+  }
+  .city-nagpur .static-part {
+    display: inline;
+  }
+  .city-nagpur .animated-number {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    display: inline-block;
+  }
+
+  /* ---------- section backgrounds ---------- */
+  .city-nagpur .section-glow-bg {
+    background: #000;
+    position: relative;
+  }
+  .city-nagpur .section-glow-bg::before {
+    content: "";
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(#143c6e29 0%, #143c6e0f 45%, transparent 72%);
+    width: min(900px, 90%);
+    height: 480px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .city-nagpur .section-glow-bg > * {
+    z-index: 1;
+    position: relative;
+  }
+  @media (max-width: 640px) {
+    .city-nagpur .section-glow-bg::before {
+      height: 320px;
+    }
+  }
+
+  .city-nagpur .nagpur-heat-section {
+    isolation: isolate;
+    background-color: #000;
+    background-image: radial-gradient(
+      68% 95% at 50% 42%,
+      #072d46c7 0%,
+      #042034a3 32%,
+      #02142273 55%,
+      #010a1238 70%,
+      transparent 86%
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 640px) {
+    .city-nagpur .nagpur-heat-section {
+      background-size: cover;
+    }
+  }
+
+  .city-nagpur .comparison-section {
+    isolation: isolate;
+    background-color: #000;
+    background-image: radial-gradient(68% 100% at 6% 52%, #e0741a66 0%, #a83e0847 32%, #5a2a0c26 56%, transparent 80%),
+      radial-gradient(72% 100% at 94% 46%, #1896de6b 0%, #0c649e4d 34%, #063a5e29 58%, transparent 82%),
+      radial-gradient(72% 90% at 50% 24%, #04243cad 0%, #03192b85 40%, #020f1b4d 64%, transparent 86%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .city-nagpur .comparison-section__inner, .city-nagpur .comparison-section__content, .city-nagpur .comparison-section__slider-wrapper {
+    background-color: transparent;
+  }
+  @media (max-width: 768px) {
+    .city-nagpur .comparison-section {
+      background-image: radial-gradient(80% 55% at 15% 68%, #d66a1629 0%, transparent 72%),
+        radial-gradient(80% 58% at 85% 66%, #168fd838 0%, transparent 74%),
+        radial-gradient(100% 70% at 50% 18%, #04243c85 0%, transparent 82%);
+    }
+  }
+
+  .city-nagpur .get-started-section {
+    position: relative;
+  }
+  .city-nagpur .get-started-section::before, .city-nagpur .get-started-section::after {
+    content: "";
+    z-index: 0;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+  }
+  .city-nagpur .get-started-section::before {
+    background-image: radial-gradient(70% 85% at 72%, #16325c52 0%, #0f224029 42%, transparent 76%);
+  }
+  .city-nagpur .get-started-section::after {
+    opacity: 0.7;
+    background-image: radial-gradient(#58a7e829 1px, transparent 1px);
+    background-size: 24px 24px;
+    -webkit-mask-image: radial-gradient(62% 90% at 70%, #000 40%, transparent 88%);
+    mask-image: radial-gradient(62% 90% at 70%, #000 40%, transparent 88%);
+  }
+
+  .city-nagpur .installation-photo {
+    position: relative;
+  }
+  .city-nagpur .installation-photo::before {
+    content: "";
+    z-index: -1;
+    filter: blur(52px);
+    pointer-events: none;
+    background: radial-gradient(60% 55%, #58a7e859 0%, #58a7e824 50%, transparent 75%);
+    position: absolute;
+    inset: -14%;
+  }
+
+  .city-nagpur .nano-image-frame {
+    transition: border-color 0.55s var(--ease-lux), box-shadow 0.55s var(--ease-lux);
+  }
+  .city-nagpur .nano-image-inner {
+    transition: transform 0.55s var(--ease-lux), filter 0.55s var(--ease-lux);
+    will-change: transform;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .city-nagpur .nano-image-frame:hover {
+      box-shadow: 0 28px 56px -18px #0009, 0 0 32px #f475211f;
+      border-color: #f475218c !important;
+    }
+    .city-nagpur .nano-image-frame:hover .nano-image-inner {
+      filter: brightness(1.08);
+      transform: translateY(-18px) scale(1.025);
+    }
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+    .city-nagpur .nano-image-frame:hover .nano-image-inner {
+      transform: none;
+    }
+  }
+
+  /* ---------- protection-stats animated icons ---------- */
+  .city-nagpur .ps-icon-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .city-nagpur .ps-arc {
+    transform-origin: 32px 32px;
+    stroke-dashoffset: 78px;
+    transition: stroke-dashoffset 0.9s var(--ease-lux), transform 0.9s var(--ease-lux);
+    transform: rotate(-70deg);
+  }
+  .city-nagpur .in-view .ps-arc {
+    stroke-dashoffset: 0;
+    transform: rotate(-90deg);
+  }
+  .city-nagpur .ps-draw {
+    stroke-dashoffset: 100px;
+    transition: stroke-dashoffset 0.8s var(--ease-lux);
+  }
+  .city-nagpur .in-view .ps-draw {
+    stroke-dashoffset: 0;
+  }
+  .city-nagpur .ps-fill-in {
+    transform-box: fill-box;
+    transform-origin: 50%;
+    opacity: 0;
+    transition: transform 0.4s var(--ease-lux) 0.7s, opacity 0.3s ease-out 0.7s;
+    transform: scale(0);
+  }
+  .city-nagpur .in-view .ps-fill-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .city-nagpur .ps-pulse {
+    transform-box: fill-box;
+    transform-origin: 50%;
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  .city-nagpur .in-view .ps-pulse {
+    animation: nagpur-ps-pulse-anim 1.1s var(--ease-lux) 0.55s forwards;
+  }
+  @keyframes nagpur-ps-pulse-anim {
+    0% {
+      opacity: 0.55;
+      transform: scale(0.85);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.45);
+    }
+  }
+  .city-nagpur .ps-bar {
+    transform-box: fill-box;
+    transform-origin: bottom;
+    transition: transform 0.5s var(--ease-lux);
+    transform: scaleY(0);
+  }
+  .city-nagpur .in-view .ps-bar-1 {
+    transition-delay: 0.1s;
+    transform: scaleY(1);
+  }
+  .city-nagpur .in-view .ps-bar-2 {
+    transition-delay: 0.22s;
+    transform: scaleY(1);
+  }
+  .city-nagpur .in-view .ps-bar-3 {
+    transition-delay: 0.34s;
+    transform: scaleY(1);
+  }
+  .city-nagpur .ps-ring {
+    transform-box: fill-box;
+    transform-origin: 50%;
+    opacity: 0;
+    transform: scale(0.75);
+  }
+  .city-nagpur .in-view .ps-ring-1 {
+    animation: nagpur-ps-ring-anim 1.3s var(--ease-lux) 0.45s forwards;
+  }
+  .city-nagpur .in-view .ps-ring-2 {
+    animation: nagpur-ps-ring-anim 1.3s var(--ease-lux) 0.6s forwards;
+  }
+  @keyframes nagpur-ps-ring-anim {
+    0% {
+      opacity: 0.45;
+      transform: scale(0.75);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.3);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .city-nagpur .ps-arc, .city-nagpur .ps-draw, .city-nagpur .ps-fill-in, .city-nagpur .ps-pulse, .city-nagpur .ps-bar, .city-nagpur .ps-ring {
+      transition: none !important;
+      animation: none !important;
+    }
+    .city-nagpur .ps-arc {
+      stroke-dashoffset: 0;
+      transform: rotate(-90deg);
+    }
+    .city-nagpur .ps-draw {
+      stroke-dashoffset: 0;
+    }
+    .city-nagpur .ps-fill-in {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .city-nagpur .ps-pulse, .city-nagpur .ps-ring {
+      opacity: 0;
+    }
+    .city-nagpur .ps-bar {
+      transform: scaleY(1);
+    }
+  }
+
+  /* ---------- scroll reveal ---------- */
+  .city-nagpur .reveal-fade-up {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s var(--ease-lux), transform 0.7s var(--ease-lux);
+  }
+  .city-nagpur .reveal-fade-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .city-nagpur .hero-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: nagpur-hero-reveal-in 0.9s var(--ease-lux) 0.15s forwards;
+  }
+  @keyframes nagpur-hero-reveal-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .city-nagpur .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s var(--ease-lux), transform 0.6s var(--ease-lux);
+  }
+  .city-nagpur .reveal-stagger.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .city-nagpur .reveal-stagger > *:nth-child(1) { transition-delay: 0ms; }
+  .city-nagpur .reveal-stagger > *:nth-child(2) { transition-delay: 60ms; }
+  .city-nagpur .reveal-stagger > *:nth-child(3) { transition-delay: 120ms; }
+  .city-nagpur .reveal-stagger > *:nth-child(4) { transition-delay: 180ms; }
+  .city-nagpur .reveal-stagger > *:nth-child(5) { transition-delay: 240ms; }
+  .city-nagpur .reveal-stagger > *:nth-child(6) { transition-delay: 300ms; }
+  .city-nagpur .reveal-stagger > *:nth-child(7) { transition-delay: 360ms; }
+  .city-nagpur .reveal-stagger > *:nth-child(8) { transition-delay: 420ms; }
+  @media (prefers-reduced-motion: reduce) {
+    .city-nagpur .reveal-fade-up, .city-nagpur .reveal-stagger > *, .city-nagpur .hero-reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}

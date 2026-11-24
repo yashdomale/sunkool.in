@@ -1,0 +1,434 @@
+@import "tailwindcss" source("../");
+@source "../../mdx-components.tsx";
+@source "../../content";
+@source "../../cities/sunkool.bhubaneswar/src";
+
+/* ------------------------------------------------------------------ */
+/*  SUNKOOL — dark luxury automotive design system                    */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  /* core palette */
+  --color-void: #000000;
+  --color-carbon: #0b0d0f;
+  --color-carbon-2: #121519;
+  --color-carbon-3: #1a1e24;
+  --color-graphite: #2a2f36;
+  --color-ash: #353b44;
+
+  --color-silver: #c0c0c0;
+  --color-silver-soft: #d8d8d8;
+  --color-glass: #eaf6ff;
+  --color-fog: #8a93a0;
+
+  /* SUN — heat / energy / power */
+  --color-sun: #f47521;
+  --color-sun-2: #f47521;
+  --color-sun-soft: #ffbf96;
+
+  /* KOOL — cooling / protection / technology */
+  --color-kool: #58a7e8;
+  --color-electric: #58a7e8; /* primary accent === KOOL blue */
+  --color-electric-deep: #2f6ea8;
+  --color-glow: #7dd3ff; /* bright highlight */
+  --color-titanium: #f47521; /* gold accent alias (kept for existing usage) */
+  --color-heat: #f47521;
+  --color-cool: #58a7e8;
+
+  /* typography */
+  --font-display: var(--font-sora), "Segoe UI", sans-serif;
+  --font-sans: var(--font-inter), "Segoe UI", sans-serif;
+
+  /* motion */
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* layout */
+  --spacing-section: 8rem;
+}
+
+:root {
+  --background: #000000;
+  --foreground: #ededed;
+}
+
+* {
+  border-color: color-mix(in oklab, var(--color-silver) 12%, transparent);
+}
+
+html {
+  overflow-x: clip;
+  overscroll-behavior-y: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ash) transparent;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-electric);
+  color: #000;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+
+/* Blog article prose — applied to the <article> wrapping MDX content */
+@utility prose-sunkool {
+  color: #ffffff;
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  max-width: 72ch;
+}
+
+@utility container-lux {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1.5rem;
+}
+
+/*
+ * CMS (admin) page backdrop: solid navy with a faint vertical gradient, two soft blue lights, and two
+ * barely-there curved sweeps across the top right. The colours are the tokens from
+ * components/admin/theme.ts, so this only looks right inside an element carrying adminTheme.
+ */
+@utility admin-backdrop {
+  background-color: var(--color-void);
+  background-image:
+    radial-gradient(ellipse 1000px 430px at calc(100% - 140px) -180px, rgb(88 167 232 / 0.04) 0 97%, transparent 100%),
+    radial-gradient(ellipse 1600px 600px at calc(100% + 280px) -280px, rgb(88 167 232 / 0.03) 0 97%, transparent 100%),
+    radial-gradient(900px 480px at 90% -8%, rgb(88 167 232 / 0.09), transparent 70%),
+    radial-gradient(720px 460px at 256px -40px, rgb(47 110 168 / 0.1), transparent 70%),
+    linear-gradient(180deg, var(--admin-bg-top), var(--color-void) 70%);
+}
+
+/*
+ * CMS sidebar: the card navy with the same faint blue wash top to bottom, plus a soft curved sweep
+ * rising from the bottom left corner.
+ */
+@utility admin-sidebar-backdrop {
+  background-color: var(--color-carbon-2);
+  background-image:
+    radial-gradient(circle 560px at -190px calc(100% + 330px), rgb(88 167 232 / 0.06) 0 97%, transparent 100%),
+    radial-gradient(circle 420px at calc(100% + 130px) calc(100% + 270px), rgb(88 167 232 / 0.04) 0 97%, transparent 100%),
+    linear-gradient(180deg, rgb(88 167 232 / 0.07), transparent 50%, rgb(88 167 232 / 0.03));
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .focus-ring {
+    outline: none;
+  }
+
+  .focus-ring:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--background),
+      0 0 0 4px var(--color-electric);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 100;
+    border-radius: 9999px;
+    background: var(--color-electric);
+    color: #000;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    transform: translateY(-200%);
+    transition: transform 0.2s var(--ease-lux);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* large cinematic headline */
+  .headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    text-wrap: balance;
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  .text-gradient-silver {
+    background: linear-gradient(180deg, #ffffff 0%, #c0c0c0 55%, #6b6b6b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-electric {
+    background: linear-gradient(120deg, #7dd3ff 0%, #58a7e8 45%, #2f6ea8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-sun {
+    background: linear-gradient(120deg, #ffbf96 0%, #f47521 45%, #ce5a12 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-kool {
+    background: linear-gradient(120deg, #bfe6ff 0%, #58a7e8 50%, #2f6ea8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* SUN vs KOOL split wordmark: gold left, blue right */
+  .text-sunkool {
+    background: linear-gradient(
+      100deg,
+      #ffbf96 0%,
+      #f47521 32%,
+      #7dd3ff 60%,
+      #58a7e8 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass {
+    background: color-mix(in oklab, #ffffff 4%, transparent);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid color-mix(in oklab, #ffffff 9%, transparent);
+  }
+
+  .glass-strong {
+    background: color-mix(in oklab, #0a0a0a 70%, transparent);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    backdrop-filter: blur(24px) saturate(140%);
+    border: 1px solid color-mix(in oklab, #ffffff 10%, transparent);
+  }
+
+  .ring-glow-electric {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-electric) 40%, transparent),
+      0 0 40px -8px color-mix(in oklab, var(--color-electric) 55%, transparent);
+  }
+
+  .climate-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      #58a7e8 0%,
+      #f47521 var(--heat, 0%),
+      color-mix(in oklab, #ffffff 12%, transparent) var(--heat, 0%),
+      color-mix(in oklab, #ffffff 12%, transparent) 100%
+    );
+    outline: none;
+    cursor: pointer;
+  }
+
+  .climate-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffbf96, #f47521);
+    border: 2px solid color-mix(in oklab, #ffffff 25%, transparent);
+    box-shadow: 0 0 12px color-mix(in oklab, #f47521 50%, transparent);
+    cursor: grab;
+  }
+
+  .climate-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffbf96, #f47521);
+    border: 2px solid color-mix(in oklab, #ffffff 25%, transparent);
+    box-shadow: 0 0 12px color-mix(in oklab, #f47521 50%, transparent);
+    cursor: grab;
+  }
+
+  /* faint hairline grid background */
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        color-mix(in oklab, #ffffff 4%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, #ffffff 4%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 64px 64px;
+  }
+
+  .mask-fade-y {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+  }
+
+  .noise {
+    position: relative;
+  }
+  .noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Keyframes                                                          */
+/* ------------------------------------------------------------------ */
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* Slides a relatively-positioned child from the start of its track to the far
+   end and back. `left` is a % of the track, translateX a % of the child, so
+   together they land its right edge flush with the track's right edge. */
+@keyframes slide-to-end {
+  0%,
+  100% {
+    left: 0;
+    transform: translateX(0);
+  }
+  50% {
+    left: 100%;
+    transform: translateX(-100%);
+  }
+}
+
+/* FloatingParticles: compositor-only (transform + opacity). Duration and delay are set per
+   dot inline; `both` shows the first keyframe during the delay. translate3d (not translateY)
+   on purpose: it puts every dot on its own layer, which measured 2-3x cheaper on the main
+   thread than a 2D translate. Reduced motion is handled by the global rule at the end of this
+   file (one instant iteration, i.e. a static dim dot). */
+@keyframes particle-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate3d(0, -26px, 0);
+    opacity: 0.8;
+  }
+}
+
+/* Dots animate only while near the viewport (data-on, set by FloatingParticles); idle ones
+   get no GPU layer. Off-screen dots are hidden so none flash at full opacity before starting. */
+.particle-field .particle {
+  opacity: 0;
+}
+.particle-field .particle[data-on] {
+  animation: particle-float 8s ease-in-out infinite both;
+}
+.particle-field[data-paused="true"] .particle {
+  animation-play-state: paused;
+}
+
+.animate-float-slow {
+  animation: float-slow 7s var(--ease-lux) infinite;
+}
+.animate-spin-slow {
+  animation: spin-slow 26s linear infinite;
+}
+.animate-slide-to-end {
+  animation: slide-to-end 2.4s ease-in-out infinite;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,18 @@
+/* Load order matters: the shared base first, then each city's own rules (same specificity, so later wins). */
+@import "./base.css";
+@import "../../content/ahmedabad/styles.css";
+@import "../../content/bhopal/styles.css";
+@import "../../content/bhubaneswar/styles.css";
+@import "../../content/ernakulam/styles.css";
+@import "../../content/hyderabad/styles.css";
+@import "../../content/indore/styles.css";
+@import "../../content/jaipur/styles.css";
+@import "../../content/jamshedpur/styles.css";
+@import "../../content/kolkata/styles.css";
+@import "../../content/kozhikode/styles.css";
+@import "../../content/raipur/styles.css";
+@import "../../content/rajkot/styles.css";
+@import "../../content/ranchi/styles.css";
+@import "../../content/surat/styles.css";
+@import "../../content/vadodara/styles.css";
+@import "../../content/vijayawada/styles.css";
