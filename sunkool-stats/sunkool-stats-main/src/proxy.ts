@@ -1,35 +1,34 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
-
-const CANONICAL_HOST = "www.sunkool.in";
+import { NOINDEX_HEADER, canonicalRedirectUrl, shouldNoindex } from "@/lib/canonical-host";
 
 export async function proxy(request: NextRequest) {
-  const host = request.headers.get("host") ?? "";
-
-  // Production-only host redirect: sunkool-stats.vercel.app is a full
-  // mirror of the site (no automatic noindex), so every non-canonical host
-  // must land on www.sunkool.in. Skip on preview/dev so branch URLs and
-  // localhost still work before DNS is pointed.
+  // Host rules (see src/lib/canonical-host.ts): only the bare apex sunkool.in
+  // is redirected to www. Other hosts (*.vercel.app, preview URLs) are served
+  // normally but marked noindex; www and localhost are untouched.
   // `host` is empty for Next's own internal image-optimizer self-fetch
   // (it re-invokes this proxy with a headerless mocked request to read local
-  // files) — never treat an empty host as "wrong host" or local images break.
-  const isProd = process.env.VERCEL_ENV === "production";
-  const isLocal =
-    host.startsWith("localhost") || host.startsWith("127.0.0.1");
-  if (isProd && host && host !== CANONICAL_HOST && !isLocal) {
-    const url = new URL(request.url);
-    url.protocol = "https";
-    url.host = CANONICAL_HOST;
-    url.port = "";
-    return NextResponse.redirect(url, 308);
+  // files) — the helpers treat an empty host as "leave alone".
+  const host = request.headers.get("host");
+  const redirectTo = canonicalRedirectUrl(host, request.url);
+  if (redirectTo) {
+    return NextResponse.redirect(redirectTo, 308);
   }
 
+  const response = await handleRequest(request);
+  if (shouldNoindex(host)) {
+    response.headers.set(NOINDEX_HEADER.name, NOINDEX_HEADER.value);
+  }
+  return response;
+}
+
+async function handleRequest(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl;
   const isLoginRoute = pathname === "/admin/login";
   const isAdminRoute = pathname.startsWith("/admin");
 
   // Only pay for a Supabase session refresh (a real network round-trip) on
-  // admin routes — the host check above already covers every other path.
+  // admin routes — the host rules in proxy() already cover every other path.
   if (!isAdminRoute) {
     return NextResponse.next();
   }

@@ -157,7 +157,7 @@ In most Next.js projects and tutorials, this file is called **`middleware.ts`**.
 
 It runs before almost every request reaches a page, and here it does two things:
 
-1. **Canonical domain redirect** — in production, if a visitor somehow lands on the wrong domain/host, it 308-redirects them to `https://www.sunkool.in`.
+1. **Canonical domain redirect** — a visitor on the bare `sunkool.in` is 308-redirected to `https://www.sunkool.in`. Any other host (the project's `*.vercel.app` URL, preview deployments) is served normally so it can be tested, but with an `X-Robots-Tag: noindex` header so search engines never index it; `www.sunkool.in` and `localhost` get no header. The rules live in `src/lib/canonical-host.ts` (tests: `canonical-host.test.ts`).
 2. **Admin protection** — for any `/admin/*` route, it refreshes the visitor's Supabase login session and redirects them to `/admin/login` if they're not signed in.
 
 ```ts

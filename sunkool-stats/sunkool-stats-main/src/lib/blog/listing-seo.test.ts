@@ -355,7 +355,9 @@ test("no layout or page outside /admin hard-codes a noindex, so a parent cannot 
   assert.deepEqual(filesMatching("src/app", /index:\s*false|["'`][^"'`\n]*noindex/i), ["src/app/admin/layout.tsx"]);
 });
 
-test("nothing sets an X-Robots-Tag header", () => {
-  assert.deepEqual(filesMatching("src", /x-robots-tag/i), []);
+// The one exception is the host noindex for non-production hosts (*.vercel.app, previews), which
+// never applies on www.sunkool.in - canonical-host.test.ts pins that through the real proxy.
+test("nothing sets an X-Robots-Tag header on the production host", () => {
+  assert.deepEqual(filesMatching("src", /x-robots-tag/i), ["src/lib/canonical-host.ts"]);
   assert.ok(!/x-robots-tag/i.test(fs.readFileSync(path.join(root, "next.config.ts"), "utf8")));
 });
